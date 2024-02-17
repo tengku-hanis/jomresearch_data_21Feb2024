@@ -1,5 +1,5 @@
 #========================================================================#
-# Title: Paired t test
+# Title: Wilcoxon signed rank test
 # Author: Jom Research (https://jomresearch.netlify.app/)
 # Date: Feb21, 2023
 #========================================================================#
@@ -13,42 +13,43 @@ library(summarytools) #descriptive
 
 # Data --------------------------------------------------------------------
 
-pt_data <- read.csv("data/data_paired_t_test.csv")
+w_data <- read.csv("data/data_wilcoxon.csv")
 
 
 # Explore -----------------------------------------------------------------
 
 ## Overall ----
-summary(pt_data)
-skim(pt_data)
-descr(pt_data)
+summary(w_data)
+skim(w_data)
+descr(w_data)
 
 
 # Assumptions -------------------------------------------------------------
 
 ## 1. Normality ----
-pt_data %>% 
+w_data %>% 
   ggplot(aes(Weight_after)) +
   geom_histogram() 
 
-pt_data %>% 
+w_data %>% 
   ggplot(aes(Weight_before)) +
   geom_histogram() 
 
-pt_data %>% 
+w_data %>% 
   ggplot(aes(sample = Weight_after)) +
   geom_qq() +
   geom_qq_line() 
 
-pt_data %>% 
+w_data %>% 
   ggplot(aes(sample = Weight_before)) +
   geom_qq() +
   geom_qq_line() 
 
 
-# Independent t test ------------------------------------------------------
 
-t.test(pt_data$Weight_after, pt_data$Weight_before, paired = T)
+# Wilcoxon signed rank test -----------------------------------------------
+
+wilcox.test(w_data$Weight_after, w_data$Weight_before, paired = T)
 
 
 # More advance ------------------------------------------------------------
@@ -56,8 +57,8 @@ t.test(pt_data$Weight_after, pt_data$Weight_before, paired = T)
 # Presentation using gtsummary package
 library(gtsummary)
 
-# Paired t test
-pt_data %>%
+# Wilcoxon signed rank test
+w_data %>%
   pivot_longer(cols = 1:2, names_to = "Time", values_to = "Weight") %>% 
   mutate(
     Time = case_when(Time == "Weight_before" ~ "Before",
@@ -66,10 +67,10 @@ pt_data %>%
   tbl_summary(
     label = Weight ~ "Weight (grams)",
     by = Time,
-    statistic = all_continuous() ~ "{mean} ({sd})",
+    statistic = all_continuous() ~ "{median} ({IQR})",
     missing = "no" 
   ) %>%
   add_n() %>%
-  add_difference(Weight ~ "t.test", test.args = Weight ~ list(paired = TRUE))
+  add_difference(Weight ~ "wilcox.test", test.args = Weight ~ list(paired = TRUE))
 
 
