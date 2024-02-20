@@ -1,4 +1,4 @@
 somepackage <- c("tidyverse", "skimr", "summarytools", "DescTools", "gtsummary",
-                 "emmeans")
+                 "emmeans", "rstatix")
 
 install.packages(somepackage)
