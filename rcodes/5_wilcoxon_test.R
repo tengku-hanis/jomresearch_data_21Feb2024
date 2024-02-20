@@ -64,6 +64,7 @@ w_data %>%
     Time = case_when(Time == "Weight_before" ~ "Before",
                      Time == "Weight_after" ~ "After")
   ) %>%   
+  select(-Weight_diff) %>% 
   tbl_summary(
     label = Weight ~ "Weight (grams)",
     by = Time,
