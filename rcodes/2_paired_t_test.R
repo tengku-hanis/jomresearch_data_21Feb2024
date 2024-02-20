@@ -46,7 +46,8 @@ shapiro.test(pt_data$Weight_diff)
 ks.test(pt_data$Weight_diff, y = "pnorm")
 
 
-# Independent t test ------------------------------------------------------
+
+# Paired t test -----------------------------------------------------------
 
 t.test(pt_data$Weight_after, pt_data$Weight_before, paired = T)
 
@@ -62,7 +63,8 @@ pt_data %>%
   mutate(
     Time = case_when(Time == "Weight_before" ~ "Before",
                      Time == "Weight_after" ~ "After")
-  ) %>%   
+  ) %>% 
+  select(-Weight_diff) %>% 
   tbl_summary(
     label = Weight ~ "Weight (grams)",
     by = Time,
