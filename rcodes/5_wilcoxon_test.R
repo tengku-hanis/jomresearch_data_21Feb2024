@@ -27,25 +27,25 @@ descr(w_data)
 # Assumptions -------------------------------------------------------------
 
 ## 1. Normality ----
+
+w_data <- 
+  w_data %>% 
+  mutate(Weight_diff = Weight_after - Weight_before)
+
+# Visually
 w_data %>% 
-  ggplot(aes(Weight_after)) +
+  ggplot(aes(Weight_diff)) +
   geom_histogram() 
 
 w_data %>% 
-  ggplot(aes(Weight_before)) +
-  geom_histogram() 
-
-w_data %>% 
-  ggplot(aes(sample = Weight_after)) +
+  ggplot(aes(sample = Weight_diff)) +
   geom_qq() +
   geom_qq_line() 
 
-w_data %>% 
-  ggplot(aes(sample = Weight_before)) +
-  geom_qq() +
-  geom_qq_line() 
-
-
+# Statistical tests
+shapiro.test(w_data$Weight_diff)
+# ks.test(w_data$Weight_diff, y = "pnorm")
+# KS assume each data is unique and cannot has a tie
 
 # Wilcoxon signed rank test -----------------------------------------------
 

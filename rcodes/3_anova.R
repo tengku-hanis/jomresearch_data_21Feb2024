@@ -47,6 +47,7 @@ ano_data %>%
 # Assumptions -------------------------------------------------------------
 
 ## 1. Normality ----
+# Visually
 ano_data %>% 
   ggplot(aes(Sepal.Length)) +
   geom_histogram() +
@@ -58,10 +59,14 @@ ano_data %>%
   geom_qq_line() +
   facet_grid(cols = vars(Species)) 
 
+# Statistical tests
+tapply(ano_data$Sepal.Length, ano_data$Species, shapiro.test)
+# tapply(ano_data$Sepal.Length, ano_data$Species, ks.test, y = "pnorm")
+# KS assume each data is unique and cannot has a tie
+
 ## 2. Equality of variances ----
 LeveneTest(Sepal.Length ~ Species, data = ano_data)
 # Unequal variance use Welch's anova
-
 
 
 # One-way anova -----------------------------------------------------------

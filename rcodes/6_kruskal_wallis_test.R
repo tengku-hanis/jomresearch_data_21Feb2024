@@ -44,6 +44,7 @@ kw_data %>%
 # Assumptions -------------------------------------------------------------
 
 ## 1. Normality ----
+# Visually
 kw_data %>% 
   ggplot(aes(Sepal.Length)) +
   geom_histogram() +
@@ -54,6 +55,11 @@ kw_data %>%
   geom_qq() +
   geom_qq_line() +
   facet_grid(cols = vars(Species)) 
+
+# Statistical tests
+tapply(kw_data$Sepal.Length, kw_data$Species, shapiro.test)
+# tapply(kw_data$Sepal.Length, kw_data$Species, ks.test, y = "pnorm")
+# KS assume each data is unique and cannot has a tie
 
 
 # Kruskal wallis tes ------------------------------------------------------

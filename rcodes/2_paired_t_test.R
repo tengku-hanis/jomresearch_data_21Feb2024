@@ -27,23 +27,23 @@ descr(pt_data)
 # Assumptions -------------------------------------------------------------
 
 ## 1. Normality ----
+pt_data <- 
+  pt_data %>% 
+  mutate(Weight_diff = Weight_after - Weight_before)
+
+# Visually
 pt_data %>% 
-  ggplot(aes(Weight_after)) +
+  ggplot(aes(Weight_diff)) +
   geom_histogram() 
 
 pt_data %>% 
-  ggplot(aes(Weight_before)) +
-  geom_histogram() 
-
-pt_data %>% 
-  ggplot(aes(sample = Weight_after)) +
+  ggplot(aes(sample = Weight_diff)) +
   geom_qq() +
   geom_qq_line() 
 
-pt_data %>% 
-  ggplot(aes(sample = Weight_before)) +
-  geom_qq() +
-  geom_qq_line() 
+# Statistical test
+shapiro.test(pt_data$Weight_diff)
+ks.test(pt_data$Weight_diff, y = "pnorm")
 
 
 # Independent t test ------------------------------------------------------

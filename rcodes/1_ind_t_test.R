@@ -44,6 +44,7 @@ it_data %>%
 # Assumptions -------------------------------------------------------------
 
 ## 1. Normality ----
+# Visually
 it_data %>% 
   ggplot(aes(Sepal.Length)) +
   geom_histogram() +
@@ -54,6 +55,12 @@ it_data %>%
   geom_qq() +
   geom_qq_line() +
   facet_grid(cols = vars(Species)) 
+
+# Statistical tests
+tapply(it_data$Sepal.Length, it_data$Species, shapiro.test)
+# tapply(it_data$Sepal.Length, it_data$Species, ks.test, y = "pnorm")
+# KS assume each data is unique and cannot has a tie
+
 
 ## 2. Equality of variances ----
 LeveneTest(Sepal.Length ~ Species, data = it_data)

@@ -43,6 +43,7 @@ mw_data %>%
 # Assumptions -------------------------------------------------------------
 
 ## 1. Normality ----
+# Visually
 mw_data %>% 
   ggplot(aes(Sepal.Length)) +
   geom_histogram() +
@@ -54,6 +55,10 @@ mw_data %>%
   geom_qq_line() +
   facet_grid(cols = vars(Species)) 
 
+# Statistical tests
+tapply(mw_data$Sepal.Length, mw_data$Species, shapiro.test)
+# tapply(mw_data$Sepal.Length, mw_data$Species, ks.test, y = "pnorm")
+# KS assume each data is unique and cannot has a tie
 
 
 # Mann-whitney test -------------------------------------------------------
