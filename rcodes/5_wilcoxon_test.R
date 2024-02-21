@@ -9,6 +9,7 @@
 library(tidyverse) #data manipulation
 library(skimr) #explore data
 library(summarytools) #descriptive
+library(DescTools) #lillie test
 
 
 # Data --------------------------------------------------------------------
@@ -44,8 +45,8 @@ w_data %>%
 
 # Statistical tests
 shapiro.test(w_data$Weight_diff)
-# ks.test(w_data$Weight_diff, y = "pnorm")
-# KS assume each data is unique and cannot has a tie
+LillieTest(w_data$Weight_diff)
+
 
 # Wilcoxon signed rank test -----------------------------------------------
 

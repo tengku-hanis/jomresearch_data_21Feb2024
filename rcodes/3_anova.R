@@ -9,7 +9,7 @@
 library(tidyverse) #data manipulation
 library(skimr) #explore data
 library(summarytools) #descriptive
-library(DescTools) #levene test
+library(DescTools) #levene test, lillie test
 library(emmeans) #posthoc test
 library(rstatix) #posthoc unequal variance
 
@@ -61,8 +61,7 @@ ano_data %>%
 
 # Statistical tests
 tapply(ano_data$Sepal.Length, ano_data$Species, shapiro.test)
-# tapply(ano_data$Sepal.Length, ano_data$Species, ks.test, y = "pnorm")
-# KS assume each data is unique and cannot has a tie
+tapply(ano_data$Sepal.Length, ano_data$Species, LillieTest)
 
 ## 2. Equality of variances ----
 LeveneTest(Sepal.Length ~ Species, data = ano_data)

@@ -9,6 +9,7 @@
 library(tidyverse) #data manipulation 
 library(skimr) #explore data
 library(summarytools) #descriptive
+library(DescTools) #lillie test
 
 
 # Data --------------------------------------------------------------------
@@ -57,8 +58,7 @@ mw_data %>%
 
 # Statistical tests
 tapply(mw_data$Sepal.Length, mw_data$Species, shapiro.test)
-# tapply(mw_data$Sepal.Length, mw_data$Species, ks.test, y = "pnorm")
-# KS assume each data is unique and cannot has a tie
+tapply(mw_data$Sepal.Length, mw_data$Species, LillieTest)
 
 
 # Mann-whitney test -------------------------------------------------------

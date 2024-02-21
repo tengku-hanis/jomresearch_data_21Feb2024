@@ -9,7 +9,7 @@
 library(tidyverse) #data manipulation
 library(skimr) #explore data
 library(summarytools) #descriptive
-library(DescTools) #levene test
+library(DescTools) #levene test, lillie test
 
 
 # Data --------------------------------------------------------------------
@@ -58,8 +58,7 @@ it_data %>%
 
 # Statistical tests
 tapply(it_data$Sepal.Length, it_data$Species, shapiro.test)
-# tapply(it_data$Sepal.Length, it_data$Species, ks.test, y = "pnorm")
-# KS assume each data is unique and cannot has a tie
+tapply(it_data$Sepal.Length, it_data$Species, LillieTest)
 
 
 ## 2. Equality of variances ----

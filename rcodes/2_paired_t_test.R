@@ -9,6 +9,7 @@
 library(tidyverse) #data manipulation
 library(skimr) #explore data
 library(summarytools) #descriptive
+library(DescTools) #lillie test
 
 
 # Data --------------------------------------------------------------------
@@ -43,8 +44,7 @@ pt_data %>%
 
 # Statistical test
 shapiro.test(pt_data$Weight_diff)
-ks.test(pt_data$Weight_diff, y = "pnorm")
-
+LillieTest(pt_data$Weight_diff)
 
 
 # Paired t test -----------------------------------------------------------
