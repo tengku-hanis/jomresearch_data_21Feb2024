@@ -94,7 +94,9 @@ it_data %>%
     missing = "no" 
     ) %>%
   add_n() %>%
-  add_difference(Sepal.Length ~ "t.test", test.args = Sepal.Length ~ list(var.equal = TRUE))
+  add_difference(Sepal.Length ~ "t.test", 
+                 test.args = Sepal.Length ~ list(var.equal = TRUE),
+                 estimate_fun = all_continuous() ~ function(x) style_number(x, digits = 2))
 
 # Welch's t test
 it_data %>%
@@ -109,4 +111,6 @@ it_data %>%
     missing = "no" 
   ) %>%
   add_n() %>%
-  add_difference(Sepal.Length ~ "t.test", test.args = Sepal.Length ~ list(var.equal = FALSE))
+  add_difference(Sepal.Length ~ "t.test", 
+                 test.args = Sepal.Length ~ list(var.equal = FALSE),
+                 estimate_fun = all_continuous() ~ function(x) style_number(x, digits = 2))

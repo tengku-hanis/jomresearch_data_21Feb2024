@@ -62,7 +62,7 @@ tapply(kw_data$Sepal.Length, kw_data$Species, shapiro.test)
 tapply(kw_data$Sepal.Length, kw_data$Species, LillieTest)
 
 
-# Kruskal wallis tes ------------------------------------------------------
+# Kruskal wallis test -----------------------------------------------------
 
 ## Kruskal wallis test ----
 kruskal.test(Sepal.Length ~ Species, data = kw_data)

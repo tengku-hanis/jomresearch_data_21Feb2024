@@ -72,6 +72,8 @@ pt_data %>%
     missing = "no" 
   ) %>%
   add_n() %>%
-  add_difference(Weight ~ "t.test", test.args = Weight ~ list(paired = TRUE))
+  add_difference(Weight ~ "t.test", 
+                 test.args = Weight ~ list(paired = TRUE),
+                 estimate_fun = all_continuous() ~ function(x) style_number(x, digits = 2))
 
 

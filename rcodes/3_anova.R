@@ -86,8 +86,7 @@ emmeans(ano_mod, pairwise ~ Species, adjust = "bonferroni")
 
 # Welch's anova -----------------------------------------------------------
 
-ano_mod2 <- oneway.test(Sepal.Length ~ Species, data = ano_data)
-ano_mod2
+oneway.test(Sepal.Length ~ Species, data = ano_data)
 
 ## Post hoc test ----
 # Games-Howell correction
